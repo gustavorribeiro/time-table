@@ -12,6 +12,21 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    ListView timesTableListView;
+
+    public void generateTimesTable(int timesTableNumber) {
+        final ArrayList<String> timesTableContent = new ArrayList<String>();
+
+        for (int j = 1; j <= 10; j++) {
+            timesTableContent.add(Integer.toString(j * timesTableNumber));
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, timesTableContent);
+
+        timesTableListView.setAdapter(arrayAdapter);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,10 +34,15 @@ public class MainActivity extends AppCompatActivity {
 
         final SeekBar timesTablesSeekBar = findViewById(R.id.seekBar);
 
-        ListView myListView = findViewById(R.id.myListView);
+        timesTableListView = findViewById(R.id.myListView);
 
-        timesTablesSeekBar.setMax(15);
-        timesTablesSeekBar.setProgress(5);
+        int max = 20;
+        int startingPosition = 10;
+
+        timesTablesSeekBar.setMax(max);
+        timesTablesSeekBar.setProgress(startingPosition);
+
+        generateTimesTable(startingPosition);
 
         timesTablesSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -37,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                     timesTableNumber = progress;
                 }
                 Log.i("Seekbar value: ", Integer.toString(timesTableNumber));
+
+                generateTimesTable(timesTableNumber);
             }
 
             @Override
@@ -49,30 +71,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        final ArrayList<String> companies = new ArrayList<String>();
-
-        companies.add("Google");
-        companies.add("Amazon");
-        companies.add("Microsoft");
-        companies.add("Apple");
-        companies.add("Meta");
-        companies.add("Netflix");
-        companies.add("Spotify");
-        companies.add("Samsung");
-        companies.add("Tesla");
-        companies.add("Space X");
-        companies.add("Loft");
-        companies.add("Nike");
-        companies.add("Adidas");
-        companies.add("Mercedes-Benz");
-        companies.add("BMW");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, companies);
-
-        myListView.setAdapter(arrayAdapter);
-
-
-
     }
 }
