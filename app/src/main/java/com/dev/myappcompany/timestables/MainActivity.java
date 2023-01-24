@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (progress < min) {
                     timesTableNumber = min;
+                    timesTablesSeekBar.setProgress(min);
                 } else {
                     timesTableNumber = progress;
                 }
